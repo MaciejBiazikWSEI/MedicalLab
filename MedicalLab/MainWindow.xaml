@@ -9,30 +9,39 @@
         Title="Laboratorium Medyczne" Height="700" Width="1800" Loaded="Window_Loaded">
     <Window.Resources>
         <CollectionViewSource x:Key="patientViewSource"/>
+        <CollectionViewSource x:Key="sampleViewSource" Source="{Binding Samples, Source={StaticResource patientViewSource}}"/>
     </Window.Resources>
-    <Grid>
+    <Grid Margin="5,5,5,5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="2">
+        <ComboBox HorizontalAlignment="Left" Margin="5,5,0,5" Width="120" VerticalAlignment="Top" Height="22"/>
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="281*"/>
                 <ColumnDefinition Width="140*"/>
                 <ColumnDefinition Width="225*"/>
                 <ColumnDefinition Width="154*"/>
             </Grid.ColumnDefinitions>
-            <DataGrid x:Name="patientDataGrid" AutoGenerateColumns="False" Margin="10,5,5,10" ItemsSource="{Binding Source={StaticResource patientViewSource}}">
+            <DataGrid x:Name="patientDataGrid" AutoGenerateColumns="False" Margin="5,5,5,5" ItemsSource="{Binding Source={StaticResource patientViewSource}}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Code}" Header="Kod" Width="SizeToHeader" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding FirstName}" Header="Imię" Width="2*" />
                     <DataGridTextColumn Binding="{Binding LastName}" Header="Nazwisko" Width="2*" />
                     <DataGridTextColumn Binding="{Binding DateOfBirth, StringFormat=\{0:dd.MM.yyyy\}}" Header="Data urodzenia" Width="*"/>
+                    <!-- TODO: Fix date input (use TemplateColumn with DatePicker?) -->
                     <DataGridTextColumn Binding="{Binding Pesel}" Header="PESEL" Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
+            <DataGrid Grid.Column="1" x:Name="sampleDataGrid" AutoGenerateColumns="False" Margin="5,5,5,5" ItemsSource="{Binding Source={StaticResource sampleViewSource}}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Code}" Header="Kod" Width="SizeToHeader" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Comment}" Header="Komentarz" Width="*" />
+                    <!-- TODO: Why can't add? -->
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
-        <ComboBox HorizontalAlignment="Left" Margin="10,10,0,5" Width="120" VerticalAlignment="Top" Height="22"/>
 
     </Grid>
 </Window>

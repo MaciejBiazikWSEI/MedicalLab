@@ -26,5 +26,7 @@ namespace MedicalLab.Models
         public virtual TestType TestTypeNameNavigation { get; set; } = null!;
         [InverseProperty("Parameter")]
         public virtual ICollection<Result> Results { get; set; }
+
+        public override string ToString() => Name;
     }
 }

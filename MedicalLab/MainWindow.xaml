@@ -6,10 +6,12 @@
         xmlns:local="clr-namespace:MedicalLab"
         x:Class="MedicalLab.MainWindow"
         mc:Ignorable="d"
-        Title="Laboratorium Medyczne" Height="700" Width="1800" Loaded="Window_Loaded">
+        Title="Laboratorium Medyczne" Height="700" Width="1200" Loaded="Window_Loaded">
     <Window.Resources>
         <CollectionViewSource x:Key="patientViewSource"/>
         <CollectionViewSource x:Key="sampleViewSource" Source="{Binding Samples, Source={StaticResource patientViewSource}}"/>
+        <CollectionViewSource x:Key="testViewSource" Source="{Binding Tests, Source={StaticResource sampleViewSource}}"/>
+        <CollectionViewSource x:Key="resultViewSource" Source="{Binding Results, Source={StaticResource testViewSource}}"/>
     </Window.Resources>
     <Grid Margin="5,5,5,5">
         <Grid.RowDefinitions>
@@ -18,18 +20,20 @@
         </Grid.RowDefinitions>
         <ComboBox HorizontalAlignment="Left" Margin="5,5,0,5" Width="120" VerticalAlignment="Top" Height="22"/>
         <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="335*"/>
+                <RowDefinition Height="307*"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="281*"/>
-                <ColumnDefinition Width="140*"/>
-                <ColumnDefinition Width="225*"/>
-                <ColumnDefinition Width="154*"/>
+                <ColumnDefinition Width="949*"/>
+                <ColumnDefinition Width="841*"/>
             </Grid.ColumnDefinitions>
             <DataGrid x:Name="patientDataGrid" AutoGenerateColumns="False" Margin="5,5,5,5" ItemsSource="{Binding Source={StaticResource patientViewSource}}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Code}" Header="Kod" Width="SizeToHeader" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding FirstName}" Header="Imię" Width="2*" />
                     <DataGridTextColumn Binding="{Binding LastName}" Header="Nazwisko" Width="2*" />
-                    <DataGridTextColumn Binding="{Binding DateOfBirth, StringFormat=\{0:dd.MM.yyyy\}}" Header="Data urodzenia" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding DateOfBirth, StringFormat=\{0:dd.MM.yyyy\}}" Header="Data urodzenia" Width="SizeToHeader"/>
                     <!-- TODO: Fix date input (use TemplateColumn with DatePicker?) -->
                     <DataGridTextColumn Binding="{Binding Pesel}" Header="PESEL" Width="*" />
                 </DataGrid.Columns>
@@ -39,6 +43,21 @@
                     <DataGridTextColumn Binding="{Binding Code}" Header="Kod" Width="SizeToHeader" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Comment}" Header="Komentarz" Width="*" />
                     <!-- TODO: Why can't add? -->
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid Grid.Row="1" x:Name="testDataGrid" AutoGenerateColumns="False" Margin="5,5,5,5" ItemsSource="{Binding Source={StaticResource testViewSource}}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Code}" Header="Kod" Width="SizeToHeader" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding TestTypeName}" Header="Typ" Width="2*" />
+                    <DataGridTextColumn Binding="{Binding Tester}" Header="Laborant" Width="2*" />
+                    <DataGridTextColumn Binding="{Binding DateFinished, StringFormat=\{0:dd.MM.yyyy\}}" Header="Data zakończenia" Width="SizeToHeader"/>
+                    <DataGridTextColumn Binding="{Binding Comment}" Header="Komentarz" Width="3*" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid Grid.Column="1" Grid.Row="1" x:Name="resultDataGrid" AutoGenerateColumns="False" Margin="5,5,5,5" ItemsSource="{Binding Source={StaticResource resultViewSource}}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Parameter}" Header="Parametr" Width="*" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Value}" Header="Wartość" Width="2*" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

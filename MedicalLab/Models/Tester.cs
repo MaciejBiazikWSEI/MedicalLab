@@ -22,5 +22,7 @@ namespace MedicalLab.Models
 
         [InverseProperty("Tester")]
         public virtual ICollection<Test> Tests { get; set; }
+
+        public override string ToString() => $"{LastName}, {FirstName}";
     }
 }

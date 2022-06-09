@@ -50,5 +50,10 @@ namespace MedicalLab
             base.OnClosing(e);
         }
 
+        private void ButtonAddTester_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new AddTester();
+            var result = window.ShowDialog();
+        }
     }
 }

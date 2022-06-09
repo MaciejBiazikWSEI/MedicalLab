@@ -1,0 +1,23 @@
+﻿<Window x:Class="MedicalLab.AddTester"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MedicalLab"
+        mc:Ignorable="d"
+        Title="Dodaj Laboranta" SizeToContent="WidthAndHeight" ResizeMode="NoResize" ShowInTaskbar="False">
+    <Grid Height="Auto" Margin="5,5,5,5" VerticalAlignment="Stretch" Width="Auto">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Imię:" Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <TextBox TextWrapping="Wrap" Width="120" Margin="5,5,5,5" HorizontalAlignment="Center" VerticalAlignment="Center" AutomationProperties.Name="TextBoxFirstName" Grid.Column="1"/>
+        <Label Content="Nazwisko:" Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <TextBox TextWrapping="Wrap" Width="120" Margin="5,5,5,5" HorizontalAlignment="Center" VerticalAlignment="Center" AutomationProperties.Name="TextBoxLastName" Grid.Row="1" Grid.Column="1"/>
+    </Grid>
+</Window>

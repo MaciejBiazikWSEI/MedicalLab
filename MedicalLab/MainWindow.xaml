@@ -19,8 +19,12 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <ComboBox HorizontalAlignment="Left" Margin="5,5,0,5" Width="260" VerticalAlignment="Top" Height="22"
+        <!-- TODO: Auto layout? -->
+        <Label Content="Laborant:" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Stretch"/>
+        <ComboBox HorizontalAlignment="Left" Margin="70,5,0,5" Width="260" VerticalAlignment="Top" Height="22"
                   ItemsSource="{Binding Source={StaticResource testerViewSource}}"/>
+        <Button Content="Dodaj" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="340,5,0,5" Click="ButtonAddTester_Click"/>
+        <Button Content="Usuń" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="385,5,0,5"/>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="335*"/>

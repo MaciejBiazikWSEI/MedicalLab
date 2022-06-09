@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Title="Laboratorium Medyczne" Height="700" Width="1200" Loaded="Window_Loaded">
     <Window.Resources>
+        <CollectionViewSource x:Key="testerViewSource"/>
         <CollectionViewSource x:Key="patientViewSource"/>
         <CollectionViewSource x:Key="sampleViewSource" Source="{Binding Samples, Source={StaticResource patientViewSource}}"/>
         <CollectionViewSource x:Key="testViewSource" Source="{Binding Tests, Source={StaticResource sampleViewSource}}"/>
@@ -18,7 +19,10 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <ComboBox HorizontalAlignment="Left" Margin="5,5,0,5" Width="120" VerticalAlignment="Top" Height="22"/>
+        <ComboBox HorizontalAlignment="Left" Margin="5,5,0,5" Width="120" VerticalAlignment="Top" Height="22"
+                  ItemsSource="{Binding Source={StaticResource testerViewSource}}"
+                  DisplayMemberPath="FirstName"
+                  SelectedValuePath="Id"/>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="335*"/>

@@ -19,10 +19,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <ComboBox HorizontalAlignment="Left" Margin="5,5,0,5" Width="120" VerticalAlignment="Top" Height="22"
-                  ItemsSource="{Binding Source={StaticResource testerViewSource}}"
-                  DisplayMemberPath="FirstName"
-                  SelectedValuePath="Id"/>
+        <ComboBox HorizontalAlignment="Left" Margin="5,5,0,5" Width="260" VerticalAlignment="Top" Height="22"
+                  ItemsSource="{Binding Source={StaticResource testerViewSource}}"/>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="335*"/>

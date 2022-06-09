@@ -1,4 +1,5 @@
 ﻿using MedicalLab.Data;
+using MedicalLab.Models;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System.Windows;
@@ -33,7 +34,14 @@ namespace MedicalLab
             _context.Patients.Load();
             _context.Testers.Load();
             patientViewSource.Source = _context.Patients.Local.ToObservableCollection();
-            testerViewSource.Source = _context.Testers.Local.ToObservableCollection();
+
+            var dummyTester = new Tester();
+            dummyTester.Id = 0;
+
+            var testers = _context.Testers.Local.ToObservableCollection();
+            testers.Add(dummyTester);
+
+            testerViewSource.Source = testers;
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -41,5 +49,6 @@ namespace MedicalLab
             _context.Dispose();
             base.OnClosing(e);
         }
+
     }
 }

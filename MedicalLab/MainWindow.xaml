@@ -19,12 +19,14 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <!-- TODO: Auto layout? -->
-        <Label Content="Laborant:" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Stretch"/>
-        <ComboBox HorizontalAlignment="Left" Margin="70,5,0,5" Width="260" VerticalAlignment="Top" Height="22"
-                  ItemsSource="{Binding Source={StaticResource testerViewSource}}"/>
-        <Button Content="Dodaj" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="340,5,0,5" Click="ButtonAddTester_Click"/>
-        <Button Content="Usuń" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="385,5,0,5"/>
+        <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+            <Label Content="Laborant:" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Center"/>
+            <ComboBox x:Name="ComboBoxTesters" HorizontalAlignment="Center" Margin="5,5,5,5" Width="260" VerticalAlignment="Center" Height="22"
+                      ItemsSource="{Binding Source={StaticResource testerViewSource}}" SelectionChanged="ComboBoxTesters_SelectionChanged"/>
+            <Button x:Name="ButtonAddTester" Content="Dodaj" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Click="ButtonAddTester_Click"/>
+            <Button x:Name="ButtonEditTester" Content="Edytuj" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Click="ButtonEditTester_Click"/>
+            <Button x:Name="ButtonDeleteTester" Content="Usuń" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Click="ButtonDeleteTester_Click"/>
+        </StackPanel>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="335*"/>
@@ -67,6 +69,5 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-
     </Grid>
 </Window>

@@ -10,14 +10,19 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Label Content="Imię:" Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <TextBox TextWrapping="Wrap" Width="120" Margin="5,5,5,5" HorizontalAlignment="Center" VerticalAlignment="Center" AutomationProperties.Name="TextBoxFirstName" Grid.Column="1"/>
+        <TextBox x:Name="TextBoxFirstName" TextWrapping="Wrap" Width="120" Margin="5,5,5,5" HorizontalAlignment="Center" VerticalAlignment="Center" AutomationProperties.Name="TextBoxFirstName" Grid.Column="1"/>
         <Label Content="Nazwisko:" Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <TextBox TextWrapping="Wrap" Width="120" Margin="5,5,5,5" HorizontalAlignment="Center" VerticalAlignment="Center" AutomationProperties.Name="TextBoxLastName" Grid.Row="1" Grid.Column="1"/>
+        <TextBox x:Name="TextBoxLastName" TextWrapping="Wrap" Width="120" Margin="5,5,5,5" HorizontalAlignment="Center" VerticalAlignment="Center" AutomationProperties.Name="TextBoxLastName" Grid.Row="1" Grid.Column="1"/>
+        <StackPanel Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Height="Auto" Margin="0,0,0,0" Grid.Row="2" VerticalAlignment="Center" FlowDirection="RightToLeft" Orientation="Horizontal">
+            <Button x:Name="ButtonCancel" Content="Anuluj" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,5,5,5" Click="ButtonCancel_Click"/>
+            <Button x:Name="ButtonSave" Content="Zapisz" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,5,5,5" Click="ButtonSave_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

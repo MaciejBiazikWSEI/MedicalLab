@@ -2,6 +2,7 @@
 using MedicalLab.Models;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -13,7 +14,7 @@ namespace MedicalLab
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly MedicalLabContext _context = new MedicalLabContext();
+        public readonly MedicalLabContext context = new MedicalLabContext();
         private CollectionViewSource testerViewSource;
         private CollectionViewSource patientViewSource;
 
@@ -31,29 +32,64 @@ namespace MedicalLab
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _context.Patients.Load();
-            _context.Testers.Load();
-            patientViewSource.Source = _context.Patients.Local.ToObservableCollection();
+            context.Patients.Load();
+            patientViewSource.Source = context.Patients.Local.ToObservableCollection();
+
+            context.Testers.Load();
 
             var dummyTester = new Tester();
             dummyTester.Id = 0;
 
-            var testers = _context.Testers.Local.ToObservableCollection();
+            var testers = context.Testers.Local.ToObservableCollection();
             testers.Add(dummyTester);
 
-            testerViewSource.Source = testers;
+            testerViewSource.Source = testers.OrderBy(x => x.Id);
         }
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            _context.Dispose();
+            context.Dispose();
             base.OnClosing(e);
         }
 
         private void ButtonAddTester_Click(object sender, RoutedEventArgs e)
         {
             var window = new AddTester();
-            var result = window.ShowDialog();
+            if(window.ShowDialog() == true)
+            {
+                context.Testers.Load();
+                testerViewSource.Source = context.Testers.Local.ToObservableCollection().OrderBy(x => x.Id);
+                // TODO: Auto select new?
+            }
+        }
+
+        private void ButtonEditTester_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new AddTester((Tester)ComboBoxTesters.SelectedItem);
+            if (window.ShowDialog() == true)
+            {
+                // TODO: Why doesn't refresh
+                context.Testers.Load();
+                testerViewSource.Source = context.Testers.Local.ToObservableCollection().OrderBy(x => x.Id);
+                // TODO: Auto select edited?
+            }
+        }
+
+        private void ComboBoxTesters_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var isEnabled = ((Tester)ComboBoxTesters.SelectedItem).Id > 0;
+            
+            ButtonDeleteTester.IsEnabled = ButtonEditTester.IsEnabled = isEnabled;
+        }
+
+        private void ButtonDeleteTester_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO: Why doesn't delete
+            context.Testers.Remove((Tester)ComboBoxTesters.SelectedItem);
+            context.SaveChanges();
+
+            context.Testers.Load();
+            testerViewSource.Source = context.Testers.Local.ToObservableCollection().OrderBy(x => x.Id);
         }
     }
 }

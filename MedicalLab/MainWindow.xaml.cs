@@ -1,7 +1,6 @@
 ﻿using MedicalLab.Data;
 using MedicalLab.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -87,6 +86,13 @@ namespace MedicalLab
         #region PatientButtons
         private void ButtonAddPatient_Click(object sender, RoutedEventArgs e)
         {
+            var window = new AddPatient();
+            if (window.ShowDialog() == true)
+            {
+                context.Patients.Load();
+                patientViewSource.Source = context.Patients.Local.ToObservableCollection().OrderBy(x => x.Code);
+                // TODO: Auto select new?
+            }
         }
 
         private void ButtonEditPatient_Click(object sender, RoutedEventArgs e)
@@ -163,7 +169,8 @@ namespace MedicalLab
         {
             context.Tests.Load();
             var selectedTesterId = ComboBoxTesters.SelectedItem is null ? 0 : ((Tester)ComboBoxTesters.SelectedItem).Id;
-            var testCollection = context.Tests.Local.ToObservableCollection().OrderBy(x => x.Code).Where(x => x.SampleCode == ((Sample)DataGridSamples.SelectedItem).Code);
+            var selectedSampleCode = DataGridSamples.SelectedItem is null ? 0 : ((Sample)DataGridSamples.SelectedItem).Code;
+            var testCollection = context.Tests.Local.ToObservableCollection().OrderBy(x => x.Code).Where(x => x.SampleCode == selectedSampleCode);
 
             if (selectedTesterId > 0)
                 testViewSource.Source = testCollection.Where(x => x.TesterId == selectedTesterId);

@@ -39,6 +39,7 @@
             <StackPanel HorizontalAlignment="Stretch">
                 <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
                     <Label Content="Pacjenci:" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Center"/>
+                    <Button x:Name="ButtonAddPatient" Content="Dodaj" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Click="ButtonAddPatient_Click"/>
                     <Button x:Name="ButtonEditPatient" Content="Edytuj" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Click="ButtonEditPatient_Click"/>
                     <Button x:Name="ButtonDeletePatient" Content="Usuń" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Click="ButtonDeletePatient_Click"/>
                 </StackPanel>
@@ -57,6 +58,7 @@
             <StackPanel Grid.Column="1" HorizontalAlignment="Stretch">
                 <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
                     <Label Content="Próbki:" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Center"/>
+                    <Button x:Name="ButtonAddSample" Content="Dodaj" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Click="ButtonAddSample_Click"/>
                     <Button x:Name="ButtonEditSample" Content="Edytuj" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Click="ButtonEditSample_Click"/>
                     <Button x:Name="ButtonDeleteSample" Content="Usuń" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Click="ButtonDeleteSample_Click"/>
                 </StackPanel>
@@ -72,6 +74,7 @@
             <StackPanel Grid.Row="1" HorizontalAlignment="Stretch">
                 <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
                     <Label Content="Badania:" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Center"/>
+                    <Button x:Name="ButtonAddTest" Content="Dodaj" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Click="ButtonAddTest_Click"/>
                     <Button x:Name="ButtonEditTest" Content="Edytuj" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Click="ButtonEditTest_Click"/>
                     <Button x:Name="ButtonDeleteTest" Content="Usuń" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Click="ButtonDeleteTest_Click"/>
                 </StackPanel>
@@ -89,6 +92,7 @@
             <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch">
                 <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
                     <Label Content="Wyniki:" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Center"/>
+                    <Button x:Name="ButtonAddResult" Content="Dodaj" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Click="ButtonAddResult_Click"/>
                     <Button x:Name="ButtonEditResult" Content="Edytuj" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Click="ButtonEditResult_Click"/>
                     <Button x:Name="ButtonDeleteResult" Content="Usuń" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Click="ButtonDeleteResult_Click"/>
                 </StackPanel>

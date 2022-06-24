@@ -1,6 +1,7 @@
 ﻿using MedicalLab.Data;
 using MedicalLab.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -17,12 +18,14 @@ namespace MedicalLab
         public readonly MedicalLabContext context = new MedicalLabContext();
         private CollectionViewSource testerViewSource;
         private CollectionViewSource patientViewSource;
+        private CollectionViewSource testViewSource;
 
         public MainWindow()
         {
             InitializeComponent();
             patientViewSource = (CollectionViewSource)FindResource(nameof(patientViewSource));
             testerViewSource = (CollectionViewSource)FindResource(nameof(testerViewSource));
+            testViewSource = (CollectionViewSource)FindResource(nameof(testViewSource));
         }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -52,6 +55,7 @@ namespace MedicalLab
             base.OnClosing(e);
         }
 
+        #region TesterButtons
         private void ButtonAddTester_Click(object sender, RoutedEventArgs e)
         {
             var window = new AddTester();
@@ -75,21 +79,97 @@ namespace MedicalLab
             }
         }
 
+        private void ButtonDeleteTester_Click(object sender, RoutedEventArgs e)
+        {
+        }
+        #endregion
+
+        #region PatientButtons
+        private void ButtonAddPatient_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void ButtonEditPatient_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void ButtonDeletePatient_Click(object sender, RoutedEventArgs e)
+        {
+        }
+        #endregion
+
+        #region SampleButtons
+        private void ButtonAddSample_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void ButtonEditSample_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void ButtonDeleteSample_Click(object sender, RoutedEventArgs e)
+        {
+        }
+        #endregion
+
+        #region TestButtons
+        private void ButtonAddTest_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void ButtonEditTest_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void ButtonDeleteTest_Click(object sender, RoutedEventArgs e)
+        {
+        }
+        #endregion
+
+        #region ResultButtons
+        private void ButtonAddResult_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void ButtonEditResult_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void ButtonDeleteResult_Click(object sender, RoutedEventArgs e)
+        {
+        }
+        #endregion
+
+        #region SelectionChanged
         private void ComboBoxTesters_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var isEnabled = ((Tester)ComboBoxTesters.SelectedItem).Id > 0;
-            
+
             ButtonDeleteTester.IsEnabled = ButtonEditTester.IsEnabled = isEnabled;
+
+            // TODO: Extract to fction
+            RefreshTests();
         }
 
-        private void ButtonDeleteTester_Click(object sender, RoutedEventArgs e)
+        
+        private void DataGridSamples_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // TODO: Why doesn't delete
-            context.Testers.Remove((Tester)ComboBoxTesters.SelectedItem);
-            context.SaveChanges();
-
-            context.Testers.Load();
-            testerViewSource.Source = context.Testers.Local.ToObservableCollection().OrderBy(x => x.Id);
+            RefreshTests();
         }
+        #endregion
+
+        #region RefreshGrid
+        private void RefreshTests()
+        {
+            context.Tests.Load();
+            var selectedTesterId = ComboBoxTesters.SelectedItem is null ? 0 : ((Tester)ComboBoxTesters.SelectedItem).Id;
+            var testCollection = context.Tests.Local.ToObservableCollection().OrderBy(x => x.Code).Where(x => x.SampleCode == ((Sample)DataGridSamples.SelectedItem).Code);
+
+            if (selectedTesterId > 0)
+                testViewSource.Source = testCollection.Where(x => x.TesterId == selectedTesterId);
+            else
+                testViewSource.Source = testCollection;
+        }
+        #endregion
     }
 }

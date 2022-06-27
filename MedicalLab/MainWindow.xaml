@@ -44,7 +44,7 @@
                     <Button x:Name="ButtonDeletePatient" Content="Usuń" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Click="ButtonDeletePatient_Click"/>
                 </StackPanel>
                 <DataGrid x:Name="DataGridPatients" AutoGenerateColumns="False" Margin="5,5,5,5" ItemsSource="{Binding Source={StaticResource patientViewSource}}"
-                          CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" IsReadOnly="True">
+                          CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" IsReadOnly="True" SelectionChanged="DataGridPatients_SelectionChanged">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Code}" Header="Kod" Width="SizeToHeader" IsReadOnly="True" />
                         <DataGridTextColumn Binding="{Binding FirstName}" Header="Imię" Width="2*" />

@@ -27,15 +27,10 @@ namespace MedicalLab
             testViewSource = (CollectionViewSource)FindResource(nameof(testViewSource));
         }
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            context.Patients.Load();
-            patientViewSource.Source = context.Patients.Local.ToObservableCollection();
+            RefreshPatients();
 
             context.Testers.Load();
 
@@ -89,14 +84,20 @@ namespace MedicalLab
             var window = new AddPatient();
             if (window.ShowDialog() == true)
             {
-                context.Patients.Load();
-                patientViewSource.Source = context.Patients.Local.ToObservableCollection().OrderBy(x => x.Code);
+                RefreshPatients();
                 // TODO: Auto select new?
             }
         }
 
         private void ButtonEditPatient_Click(object sender, RoutedEventArgs e)
         {
+            var window = new AddPatient((Patient)DataGridPatients.SelectedItem);
+            if (window.ShowDialog() == true)
+            {
+                // TODO: Why doesn't refresh
+                RefreshPatients();
+                // TODO: Auto select new?
+            }
         }
 
         private void ButtonDeletePatient_Click(object sender, RoutedEventArgs e)
@@ -153,18 +154,26 @@ namespace MedicalLab
 
             ButtonDeleteTester.IsEnabled = ButtonEditTester.IsEnabled = isEnabled;
 
-            // TODO: Extract to fction
             RefreshTests();
         }
+        private void DataGridPatients_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ButtonDeletePatient.IsEnabled = ButtonEditPatient.IsEnabled = DataGridPatients.SelectedItem is not null;
+        }
 
-        
         private void DataGridSamples_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             RefreshTests();
         }
         #endregion
 
-        #region RefreshGrid
+        #region Refresh
+        private void RefreshPatients()
+        {
+            context.Patients.Load();
+            patientViewSource.Source = context.Patients.Local.ToObservableCollection().OrderBy(x => x.Code);
+        }
+
         private void RefreshTests()
         {
             context.Tests.Load();

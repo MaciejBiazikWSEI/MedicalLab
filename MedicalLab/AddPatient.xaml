@@ -12,7 +12,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -27,9 +26,7 @@
         <TextBox x:Name="TextBoxDateOfBirth" TextWrapping="Wrap" Width="120" Margin="5,5,5,5" HorizontalAlignment="Center" VerticalAlignment="Center" AutomationProperties.Name="TextBoxDateOfBirth" Grid.Row="2" Grid.Column="1"/>
         -->
         <DatePicker x:Name="DatePickerBirth" Grid.Column="1" HorizontalAlignment="Center" Width="120" Margin="5,5,5,5" Grid.Row="2" VerticalAlignment="Center"/>
-        <Label Content="PESEL:" Margin="5,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="TextBoxPesel" TextWrapping="Wrap" Width="120" Margin="5,5,5,5" HorizontalAlignment="Center" VerticalAlignment="Center" AutomationProperties.Name="TextBoxPesel" Grid.Row="3" Grid.Column="1" MaxLength="11"/>
-        <StackPanel Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Height="Auto" Margin="0,0,0,0" Grid.Row="4" VerticalAlignment="Center" FlowDirection="RightToLeft" Orientation="Horizontal">
+        <StackPanel Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Height="Auto" Margin="0,0,0,0" Grid.Row="3" VerticalAlignment="Center" FlowDirection="RightToLeft" Orientation="Horizontal">
             <Button x:Name="ButtonCancel" Content="Anuluj" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,5,5,5" Click="ButtonCancel_Click"/>
             <Button x:Name="ButtonSave" Content="Zapisz" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,5,5,5" Click="ButtonSave_Click"/>
         </StackPanel>

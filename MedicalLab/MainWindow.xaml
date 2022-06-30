@@ -12,7 +12,6 @@
         <CollectionViewSource x:Key="patientViewSource"/>
         <CollectionViewSource x:Key="sampleViewSource" Source="{Binding Samples, Source={StaticResource patientViewSource}}"/>
         <CollectionViewSource x:Key="testViewSource"/>
-        <CollectionViewSource x:Key="resultViewSource" Source="{Binding Results, Source={StaticResource testViewSource}}"/>
     </Window.Resources>
     <Grid Margin="5,5,5,5">
         <Grid.RowDefinitions>
@@ -50,8 +49,6 @@
                         <DataGridTextColumn Binding="{Binding FirstName}" Header="Imię" Width="2*" />
                         <DataGridTextColumn Binding="{Binding LastName}" Header="Nazwisko" Width="2*" />
                         <DataGridTextColumn Binding="{Binding DateOfBirth, StringFormat=\{0:dd.MM.yyyy\}}" Header="Data urodzenia" Width="SizeToHeader"/>
-                        <!-- TODO: Fix date input (use TemplateColumn with DatePicker?) -->
-                        <DataGridTextColumn Binding="{Binding Pesel}" Header="PESEL" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
@@ -71,7 +68,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
-            <StackPanel Grid.Row="1" HorizontalAlignment="Stretch">
+            <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch">
                 <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
                     <Label Content="Badania:" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Center"/>
                     <Button x:Name="ButtonAddTest" Content="Dodaj" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Click="ButtonAddTest_Click"/>
@@ -82,25 +79,9 @@
                     CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" IsReadOnly="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Code}" Header="Kod" Width="SizeToHeader" IsReadOnly="True" />
-                        <DataGridTextColumn Binding="{Binding TestTypeName}" Header="Typ" Width="2*" />
                         <DataGridTextColumn Binding="{Binding Tester}" Header="Laborant" Width="2*" />
                         <DataGridTextColumn Binding="{Binding DateFinished, StringFormat=\{0:dd.MM.yyyy\}}" Header="Data zakończenia" Width="SizeToHeader"/>
                         <DataGridTextColumn Binding="{Binding Comment}" Header="Komentarz" Width="3*" />
-                    </DataGrid.Columns>
-                </DataGrid>
-            </StackPanel>
-            <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch">
-                <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-                    <Label Content="Wyniki:" HorizontalAlignment="Center" Margin="5,5,5,5" VerticalAlignment="Center"/>
-                    <Button x:Name="ButtonAddResult" Content="Dodaj" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Click="ButtonAddResult_Click"/>
-                    <Button x:Name="ButtonEditResult" Content="Edytuj" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Click="ButtonEditResult_Click"/>
-                    <Button x:Name="ButtonDeleteResult" Content="Usuń" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Click="ButtonDeleteResult_Click"/>
-                </StackPanel>
-                <DataGrid Grid.Column="1" Grid.Row="1" x:Name="DataGridResults" AutoGenerateColumns="False" Margin="5,5,5,5" ItemsSource="{Binding Source={StaticResource resultViewSource}}"
-                          CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" IsReadOnly="True">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Parameter}" Header="Parametr" Width="*" IsReadOnly="True" />
-                        <DataGridTextColumn Binding="{Binding Value}" Header="Wartość" Width="2*" />
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>

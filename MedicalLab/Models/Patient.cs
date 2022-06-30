@@ -21,10 +21,6 @@ namespace MedicalLab.Models
         public string LastName { get; set; } = null!;
         [Column(TypeName = "date")]
         public DateTime DateOfBirth { get; set; }
-        [Column("PESEL")]
-        [StringLength(11)]
-        [Unicode(false)]
-        public string? Pesel { get; set; }
 
         [InverseProperty("PatientCodeNavigation")]
         public virtual ICollection<Sample> Samples { get; set; }

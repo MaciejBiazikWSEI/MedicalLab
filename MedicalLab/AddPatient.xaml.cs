@@ -25,7 +25,6 @@ namespace MedicalLab
             TextBoxFirstName.Text = patient.FirstName;
             TextBoxLastName.Text = patient.LastName;
             DatePickerBirth.SelectedDate = patient.DateOfBirth;
-            TextBoxPesel.Text = patient.Pesel;
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
@@ -43,7 +42,6 @@ namespace MedicalLab
                 patient.FirstName = TextBoxFirstName.Text;
                 patient.LastName = TextBoxLastName.Text;
                 patient.DateOfBirth = DatePickerBirth.SelectedDate ?? DateTime.Today.AddDays(20); // if date null, ensure it's invalid (in the future) so an exception is triggered
-                patient.Pesel = TextBoxPesel.Text;
 
                 if (code == 0)
                     context.Patients.Add(patient);

@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-// Global TODOs: figure out deleting, grey out buttons where necessary, auto select
+// Global TODOs: grey out buttons where necessary, auto select
 
 namespace MedicalLab
 {
@@ -34,17 +34,11 @@ namespace MedicalLab
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            // Add dummy tester as "all"
+            context.Testers.Add(new Tester() { Id = 0 });
+
+            RefreshTesters();
             RefreshPatients();
-
-            context.Testers.Load();
-
-            var dummyTester = new Tester();
-            dummyTester.Id = 0;
-
-            var testers = context.Testers.Local.ToObservableCollection();
-            testers.Add(dummyTester);
-
-            testerViewSource.Source = testers.OrderBy(x => x.Id);
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -57,7 +51,7 @@ namespace MedicalLab
         private void ButtonAddTester_Click(object sender, RoutedEventArgs e)
         {
             var window = new AddTester();
-            if(window.ShowDialog() == true)
+            if (window.ShowDialog() == true)
             {
                 RefreshTesters();
                 // TODO: Auto select new?
@@ -78,6 +72,15 @@ namespace MedicalLab
 
         private void ButtonDeleteTester_Click(object sender, RoutedEventArgs e)
         {
+            var selected = (Tester)ComboBoxTesters.SelectedItem;
+            using (var context2 = new MedicalLabContext())
+            {
+                // necessary to use a separate context to avoid saving the dummy tester
+                context2.Remove(selected);
+                context2.SaveChanges();
+            }
+            context.Entry(selected).Reload();
+            RefreshTesters();
         }
         #endregion
 
@@ -106,6 +109,15 @@ namespace MedicalLab
 
         private void ButtonDeletePatient_Click(object sender, RoutedEventArgs e)
         {
+            var selected = (Patient)DataGridPatients.SelectedItem;
+            using (var context2 = new MedicalLabContext())
+            {
+                // necessary to use a separate context to avoid saving the dummy tester
+                context2.Remove(selected);
+                context2.SaveChanges();
+            }
+            context.Entry(selected).Reload();
+            RefreshPatients();
         }
         #endregion
 
@@ -134,6 +146,16 @@ namespace MedicalLab
 
         private void ButtonDeleteSample_Click(object sender, RoutedEventArgs e)
         {
+            var selected = (Sample)DataGridSamples.SelectedItem;
+            using (var context2 = new MedicalLabContext())
+            {
+                // necessary to use a separate context to avoid saving the dummy tester
+                context2.Remove(selected);
+                context2.SaveChanges();
+            }
+            // TODO: Why crash?
+            context.Entry(selected).Reload();
+            RefreshSamples();
         }
         #endregion
 
@@ -163,6 +185,15 @@ namespace MedicalLab
 
         private void ButtonDeleteTest_Click(object sender, RoutedEventArgs e)
         {
+            var selected = (Test)DataGridTests.SelectedItem;
+            using (var context2 = new MedicalLabContext())
+            {
+                // necessary to use a separate context to avoid saving the dummy tester
+                context2.Remove(selected);
+                context2.SaveChanges();
+            }
+            context.Entry(selected).Reload();
+            RefreshTests();
         }
         #endregion
 

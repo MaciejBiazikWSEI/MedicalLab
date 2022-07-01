@@ -6,6 +6,9 @@ using MedicalLab.Models;
 
 namespace MedicalLab.Data
 {
+    /// <summary>
+    /// Medical Lab application database context
+    /// </summary>
     public partial class MedicalLabContext : DbContext
     {
         public MedicalLabContext()

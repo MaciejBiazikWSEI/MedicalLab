@@ -14,6 +14,11 @@ namespace MedicalLab
         private int testerId = 0;
         private int sampleCode = 0;
 
+        /// <summary>
+        /// Constructor for adding a test
+        /// </summary>
+        /// <param name="tester">Tester assigned to the test</param>
+        /// <param name="sample">Sample that is tested</param>
         public AddTest(Tester tester, Sample sample)
         {
             InitializeComponent();
@@ -21,6 +26,10 @@ namespace MedicalLab
             sampleCode = sample.Code;
         }
 
+        /// <summary>
+        /// Constructor for editing a test
+        /// </summary>
+        /// <param name="test">Test to edit</param>
         public AddTest(Test test)
         {
             InitializeComponent();

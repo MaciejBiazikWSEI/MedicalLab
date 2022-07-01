@@ -12,11 +12,18 @@ namespace MedicalLab
     {
         private int code = 0;
 
+        /// <summary>
+        /// Constructor for adding a patient
+        /// </summary>
         public AddPatient()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Constructor for editing a patient
+        /// </summary>
+        /// <param name="patient">Patient to edit</param>
         public AddPatient(Patient patient)
         {
             InitializeComponent();

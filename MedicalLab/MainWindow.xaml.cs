@@ -14,7 +14,7 @@ namespace MedicalLab
     /// </summary>
     public partial class MainWindow : Window
     {
-        public readonly MedicalLabContext context = new MedicalLabContext();
+        private readonly MedicalLabContext context = new MedicalLabContext();
         private CollectionViewSource testerViewSource;
         private CollectionViewSource patientViewSource;
         private CollectionViewSource sampleViewSource;

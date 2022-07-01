@@ -13,12 +13,19 @@ namespace MedicalLab
         private int code = 0;
         private int patientCode = 0;
 
+        /// <summary>
+        /// Constructor for adding a sample
+        /// </summary>
+        /// <param name="patient">Patient from whom the sample was taken</param>
         public AddSample(Patient patient)
         {
             InitializeComponent();
             patientCode = patient.Code;
         }
-
+        /// <summary>
+        /// Constructor for editing a sample
+        /// </summary>
+        /// <param name="sample">Sample to edit</param>
         public AddSample(Sample sample)
         {
             InitializeComponent();

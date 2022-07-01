@@ -139,10 +139,23 @@ namespace MedicalLab
         #region TestButtons
         private void ButtonAddTest_Click(object sender, RoutedEventArgs e)
         {
+            var window = new AddTest((Tester)ComboBoxTesters.SelectedItem, (Sample)DataGridSamples.SelectedItem);
+            if (window.ShowDialog() == true)
+            {
+                RefreshTests();
+                // TODO: Auto select new?
+            }
         }
 
         private void ButtonEditTest_Click(object sender, RoutedEventArgs e)
         {
+            var window = new AddTest((Test)DataGridTests.SelectedItem);
+            if (window.ShowDialog() == true)
+            {
+                // TODO: Why doesn't refresh
+                RefreshTests();
+                // TODO: Auto select new?
+            }
         }
 
         private void ButtonDeleteTest_Click(object sender, RoutedEventArgs e)

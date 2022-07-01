@@ -10,8 +10,6 @@ namespace MedicalLab.Models
     {
         [Key]
         public int Code { get; set; }
-        [StringLength(40)]
-        public string TestTypeName { get; set; } = null!;
         public int SampleCode { get; set; }
         public int TesterId { get; set; }
         [Column(TypeName = "date")]

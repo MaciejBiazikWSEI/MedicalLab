@@ -7,8 +7,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-// Global TODOs: auto select
-
 namespace MedicalLab
 {
     /// <summary>
@@ -54,7 +52,7 @@ namespace MedicalLab
             if (window.ShowDialog() == true)
             {
                 RefreshTesters();
-                // TODO: Auto select new?
+                ComboBoxTesters.SelectedItem = context.Testers.OrderByDescending(x => x.Id).First();
             }
         }
 
@@ -66,7 +64,7 @@ namespace MedicalLab
             {
                 context.Entry(selected).Reload();
                 RefreshTesters();
-                // TODO: Auto select edited?
+                ComboBoxTesters.SelectedItem = selected;
             }
         }
 
@@ -91,7 +89,7 @@ namespace MedicalLab
             if (window.ShowDialog() == true)
             {
                 RefreshPatients();
-                // TODO: Auto select new?
+                DataGridPatients.SelectedItem = context.Patients.OrderByDescending(x => x.Code).First();
             }
         }
 
@@ -103,7 +101,7 @@ namespace MedicalLab
             {
                 context.Entry(selected).Reload();
                 RefreshPatients();
-                // TODO: Auto select new?
+                DataGridPatients.SelectedItem = selected;
             }
         }
 
@@ -128,7 +126,7 @@ namespace MedicalLab
             if (window.ShowDialog() == true)
             {
                 RefreshSamples();
-                // TODO: Auto select new?
+                DataGridSamples.SelectedItem = context.Samples.OrderByDescending(x => x.Code).First();
             }
         }
 
@@ -140,7 +138,7 @@ namespace MedicalLab
             {
                 context.Entry(selected).Reload();
                 RefreshSamples();
-                // TODO: Auto select new?
+                DataGridSamples.SelectedItem = selected;
             }
         }
 
@@ -166,7 +164,7 @@ namespace MedicalLab
             if (window.ShowDialog() == true)
             {
                 RefreshTests();
-                // TODO: Auto select new?
+                DataGridTests.SelectedItem = context.Tests.OrderByDescending(x => x.Code).First();
             }
         }
 
@@ -179,7 +177,7 @@ namespace MedicalLab
             {
                 context.Entry(selected).Reload();
                 RefreshTests();
-                // TODO: Auto select new?
+                DataGridTests.SelectedItem = selected;
             }
         }
 

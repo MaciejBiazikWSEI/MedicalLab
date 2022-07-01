@@ -75,7 +75,7 @@
                     <Button x:Name="ButtonDeleteTest" Content="Usuń" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Click="ButtonDeleteTest_Click"/>
                 </StackPanel>
                 <DataGrid x:Name="DataGridTests" AutoGenerateColumns="False" Margin="5,5,5,5" ItemsSource="{Binding Source={StaticResource testViewSource}}"
-                    CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" IsReadOnly="True">
+                    CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" IsReadOnly="True" SelectionChanged="DataGridTests_SelectionChanged">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Code}" Header="Kod" Width="SizeToHeader" IsReadOnly="True" />
                         <DataGridTextColumn Binding="{Binding Tester}" Header="Laborant" Width="2*" />

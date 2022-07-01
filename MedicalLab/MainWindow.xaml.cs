@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-// Global TODOs: grey out buttons where necessary, auto select
+// Global TODOs: auto select
 
 namespace MedicalLab
 {
@@ -214,22 +214,43 @@ namespace MedicalLab
         #region SelectionChanged
         private void ComboBoxTesters_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var isEnabled = ((Tester)ComboBoxTesters.SelectedItem).Id > 0;
+            var selected = (Tester)ComboBoxTesters.SelectedItem;
+            var isEnabled = selected.Id > 0;
 
-            ButtonDeleteTester.IsEnabled = ButtonEditTester.IsEnabled = isEnabled;
+            ButtonEditTester.IsEnabled = isEnabled;
+            ButtonDeleteTester.IsEnabled = isEnabled && (selected?.Tests.Count == 0);
+            ButtonAddTest.IsEnabled = isEnabled && DataGridSamples.SelectedItem is not null;
 
             RefreshTests();
         }
         private void DataGridPatients_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ButtonDeletePatient.IsEnabled = ButtonEditPatient.IsEnabled = DataGridPatients.SelectedItem is not null;
+            var selected = (Patient)DataGridPatients.SelectedItem;
+            var isEnabled = selected is not null;
+
+            ButtonEditPatient.IsEnabled = ButtonAddSample.IsEnabled = isEnabled;
+            ButtonDeletePatient.IsEnabled = isEnabled && (selected?.Samples.Count == 0);
 
             RefreshSamples();
         }
 
         private void DataGridSamples_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            var selected = (Sample)DataGridSamples.SelectedItem;
+            var isEnabled = selected is not null;
+
+            ButtonEditSample.IsEnabled = isEnabled;
+            ButtonDeleteSample.IsEnabled = isEnabled && (selected?.Tests.Count == 0);
+            ButtonAddTest.IsEnabled = isEnabled && ((Tester)ComboBoxTesters.SelectedItem).Id > 0;
+
             RefreshTests();
+        }
+
+        private void DataGridTests_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var isEnabled = DataGridTests.SelectedItem is not null;
+
+            ButtonDeleteTest.IsEnabled = ButtonEditTest.IsEnabled = isEnabled;
         }
         #endregion
 

@@ -64,7 +64,6 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Code}" Header="Kod" Width="SizeToHeader" IsReadOnly="True" />
                         <DataGridTextColumn Binding="{Binding Comment}" Header="Komentarz" Width="*" />
-                        <!-- TODO: Why can't add? -->
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>

@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-// Global TODOs: Fix editing, figure out deleting, grey out buttons where necessary, auto select
+// Global TODOs: figure out deleting, grey out buttons where necessary, auto select
 
 namespace MedicalLab
 {
@@ -59,20 +59,19 @@ namespace MedicalLab
             var window = new AddTester();
             if(window.ShowDialog() == true)
             {
-                context.Testers.Load();
-                testerViewSource.Source = context.Testers.Local.ToObservableCollection().OrderBy(x => x.Id);
+                RefreshTesters();
                 // TODO: Auto select new?
             }
         }
 
         private void ButtonEditTester_Click(object sender, RoutedEventArgs e)
         {
-            var window = new AddTester((Tester)ComboBoxTesters.SelectedItem);
+            var selected = (Tester)ComboBoxTesters.SelectedItem;
+            var window = new AddTester(selected);
             if (window.ShowDialog() == true)
             {
-                // TODO: Why doesn't refresh
-                context.Testers.Load();
-                testerViewSource.Source = context.Testers.Local.ToObservableCollection().OrderBy(x => x.Id);
+                context.Entry(selected).Reload();
+                RefreshTesters();
                 // TODO: Auto select edited?
             }
         }
@@ -95,10 +94,11 @@ namespace MedicalLab
 
         private void ButtonEditPatient_Click(object sender, RoutedEventArgs e)
         {
-            var window = new AddPatient((Patient)DataGridPatients.SelectedItem);
+            var selected = (Patient)DataGridPatients.SelectedItem;
+            var window = new AddPatient(selected);
             if (window.ShowDialog() == true)
             {
-                // TODO: Why doesn't refresh
+                context.Entry(selected).Reload();
                 RefreshPatients();
                 // TODO: Auto select new?
             }
@@ -122,10 +122,11 @@ namespace MedicalLab
 
         private void ButtonEditSample_Click(object sender, RoutedEventArgs e)
         {
-            var window = new AddSample((Sample)DataGridSamples.SelectedItem);
+            var selected = (Sample)DataGridSamples.SelectedItem;
+            var window = new AddSample(selected);
             if (window.ShowDialog() == true)
             {
-                // TODO: Why doesn't refresh
+                context.Entry(selected).Reload();
                 RefreshSamples();
                 // TODO: Auto select new?
             }
@@ -149,10 +150,12 @@ namespace MedicalLab
 
         private void ButtonEditTest_Click(object sender, RoutedEventArgs e)
         {
-            var window = new AddTest((Test)DataGridTests.SelectedItem);
+
+            var selected = (Test)DataGridTests.SelectedItem;
+            var window = new AddTest(selected);
             if (window.ShowDialog() == true)
             {
-                // TODO: Why doesn't refresh
+                context.Entry(selected).Reload();
                 RefreshTests();
                 // TODO: Auto select new?
             }
@@ -200,6 +203,12 @@ namespace MedicalLab
         #endregion
 
         #region Refresh
+        private void RefreshTesters()
+        {
+            context.Testers.Load();
+            testerViewSource.Source = context.Testers.Local.ToObservableCollection().OrderBy(x => x.Id);
+        }
+
         private void RefreshPatients()
         {
             context.Patients.Load();

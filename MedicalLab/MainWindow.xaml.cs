@@ -151,7 +151,7 @@ namespace MedicalLab
                 context2.Remove(selected);
                 context2.SaveChanges();
             }
-            // TODO: Why crash?
+            
             context.Entry(selected).Reload();
             RefreshSamples();
         }

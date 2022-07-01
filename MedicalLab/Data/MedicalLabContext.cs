@@ -47,7 +47,6 @@ namespace MedicalLab.Data
                 entity.HasOne(d => d.PatientCodeNavigation)
                     .WithMany(p => p.Samples)
                     .HasForeignKey(d => d.PatientCode)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Samples__Patient__30F848ED");
             });
 

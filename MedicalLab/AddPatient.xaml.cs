@@ -37,11 +37,14 @@ namespace MedicalLab
         {
             using (var context = new MedicalLabContext())
             {
+                if (DatePickerBirth.SelectedDate is null)
+                    return;
+
                 var patient = code == 0 ? new Patient() : context.Patients.Find(code);
 
                 patient.FirstName = TextBoxFirstName.Text;
                 patient.LastName = TextBoxLastName.Text;
-                patient.DateOfBirth = DatePickerBirth.SelectedDate ?? DateTime.Today.AddDays(20); // TODO: handle null date better
+                patient.DateOfBirth = (DateTime)DatePickerBirth.SelectedDate;
 
                 if (code == 0)
                     context.Patients.Add(patient);
@@ -53,9 +56,9 @@ namespace MedicalLab
                     DialogResult = true;
                     Close();
                 }
-                catch (Exception ex)
+                catch
                 {
-                    // TODO: Warning message?
+                    // Do nothing
                 }
             }
         }

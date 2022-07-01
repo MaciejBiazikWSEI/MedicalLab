@@ -51,9 +51,9 @@ namespace MedicalLab
                     DialogResult = true;
                     Close();
                 }
-                catch (Exception ex)
+                catch
                 {
-                    // TODO: Warning message?
+                    // Do nothing
                 }
             }
         }

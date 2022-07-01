@@ -6,25 +6,25 @@ using System.Windows;
 namespace MedicalLab
 {
     /// <summary>
-    /// Interaction logic for AddPatient.xaml
+    /// Interaction logic for AddSample.xaml
     /// </summary>
-    public partial class AddPatient : Window
+    public partial class AddSample : Window
     {
         private int code = 0;
+        private int patientCode = 0;
 
-        public AddPatient()
+        public AddSample(Patient patient)
         {
             InitializeComponent();
+            patientCode = patient.Code;
         }
 
-        public AddPatient(Patient patient)
+        public AddSample(Sample sample)
         {
             InitializeComponent();
 
-            code = patient.Code;
-            TextBoxFirstName.Text = patient.FirstName;
-            TextBoxLastName.Text = patient.LastName;
-            DatePickerBirth.SelectedDate = patient.DateOfBirth;
+            code = sample.Code;
+            TextBoxComment.Text = sample.Comment;
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
@@ -37,14 +37,12 @@ namespace MedicalLab
         {
             using (var context = new MedicalLabContext())
             {
-                var patient = code == 0 ? new Patient() : context.Patients.Find(code);
+                var sample = code == 0 ? new Sample() { PatientCode = patientCode } : context.Samples.Find(code);
 
-                patient.FirstName = TextBoxFirstName.Text;
-                patient.LastName = TextBoxLastName.Text;
-                patient.DateOfBirth = DatePickerBirth.SelectedDate ?? DateTime.Today.AddDays(20); // if date null, ensure it's invalid (in the future) so an exception is triggered
+                sample.Comment = TextBoxComment.Text;
 
                 if (code == 0)
-                    context.Patients.Add(patient);
+                    context.Samples.Add(sample);
 
                 try
                 {

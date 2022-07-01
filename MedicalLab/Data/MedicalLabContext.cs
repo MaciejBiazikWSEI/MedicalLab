@@ -27,7 +27,6 @@ namespace MedicalLab.Data
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MedicalLab");
-                optionsBuilder.UseLazyLoadingProxies();
             }
         }
 

@@ -7,6 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
+// Global TODOs: Fix editing, figure out deleting, grey out buttons where necessary, auto select
+
 namespace MedicalLab
 {
     /// <summary>
@@ -17,6 +19,7 @@ namespace MedicalLab
         public readonly MedicalLabContext context = new MedicalLabContext();
         private CollectionViewSource testerViewSource;
         private CollectionViewSource patientViewSource;
+        private CollectionViewSource sampleViewSource;
         private CollectionViewSource testViewSource;
 
         public MainWindow()
@@ -24,6 +27,7 @@ namespace MedicalLab
             InitializeComponent();
             patientViewSource = (CollectionViewSource)FindResource(nameof(patientViewSource));
             testerViewSource = (CollectionViewSource)FindResource(nameof(testerViewSource));
+            sampleViewSource = (CollectionViewSource)FindResource(nameof(sampleViewSource));
             testViewSource = (CollectionViewSource)FindResource(nameof(testViewSource));
         }
 
@@ -108,10 +112,23 @@ namespace MedicalLab
         #region SampleButtons
         private void ButtonAddSample_Click(object sender, RoutedEventArgs e)
         {
+            var window = new AddSample((Patient)DataGridPatients.SelectedItem);
+            if (window.ShowDialog() == true)
+            {
+                RefreshSamples();
+                // TODO: Auto select new?
+            }
         }
 
         private void ButtonEditSample_Click(object sender, RoutedEventArgs e)
         {
+            var window = new AddSample((Sample)DataGridSamples.SelectedItem);
+            if (window.ShowDialog() == true)
+            {
+                // TODO: Why doesn't refresh
+                RefreshSamples();
+                // TODO: Auto select new?
+            }
         }
 
         private void ButtonDeleteSample_Click(object sender, RoutedEventArgs e)
@@ -159,6 +176,8 @@ namespace MedicalLab
         private void DataGridPatients_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ButtonDeletePatient.IsEnabled = ButtonEditPatient.IsEnabled = DataGridPatients.SelectedItem is not null;
+
+            RefreshSamples();
         }
 
         private void DataGridSamples_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -172,6 +191,14 @@ namespace MedicalLab
         {
             context.Patients.Load();
             patientViewSource.Source = context.Patients.Local.ToObservableCollection().OrderBy(x => x.Code);
+        }
+
+        private void RefreshSamples()
+        {
+            context.Samples.Load();
+
+            var selectedPatientCode = DataGridPatients.SelectedItem is null ? 0 : ((Patient)DataGridPatients.SelectedItem).Code;
+            sampleViewSource.Source = context.Samples.Local.ToObservableCollection().OrderBy(x => x.Code).Where(x => x.PatientCode == selectedPatientCode);
         }
 
         private void RefreshTests()

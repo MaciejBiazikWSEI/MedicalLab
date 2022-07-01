@@ -10,7 +10,7 @@
     <Window.Resources>
         <CollectionViewSource x:Key="testerViewSource"/>
         <CollectionViewSource x:Key="patientViewSource"/>
-        <CollectionViewSource x:Key="sampleViewSource" Source="{Binding Samples, Source={StaticResource patientViewSource}}"/>
+        <CollectionViewSource x:Key="sampleViewSource"/>
         <CollectionViewSource x:Key="testViewSource"/>
     </Window.Resources>
     <Grid Margin="5,5,5,5">
